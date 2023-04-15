@@ -1,0 +1,1 @@
+export {IzpisZaposlenega} from "./IzpisZaposlenega";

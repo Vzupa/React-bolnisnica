@@ -1,5 +1,5 @@
 import {Zaposlen} from "../../Modules/Zaposlen";
-import {IzpisZaposlenega} from "../IzpisZaposlenega/IzpisZaposlenega";
+import {IzpisZaposlenega} from "../IzpisZaposlenega";
 import {useZaposleni} from "../../App";
 
 

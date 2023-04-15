@@ -1,7 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {TabelaZaposlenih} from "./Components/TabelaZaposlenih/TabelaZaposlenih";
 import {originalZaposleni} from "./Modules/main";
 import {Link, Outlet, useOutletContext} from "react-router-dom";
 
@@ -14,6 +12,7 @@ function App() {
 
   return (
     <div>
+        <Link to={"/dodajZaposlenega"}>Dodaj Zaposlenega </Link>
       <Link to={"/vsiZaposleni"}>Vsi Zaposleni</Link>
       <Outlet context={ {zaposleni, setZaposleni} } />
     </div>
