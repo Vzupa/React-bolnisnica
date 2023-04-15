@@ -139,10 +139,10 @@ const MajaBabic: Zaposlen = {
     odsotnosti: []
 }
 
-export const zaposleni: Zaposlen[] = [AnaNovak, MarkoKovac, MajaPetrovic, PeterHorvat, SaraZagar, LukaNovak, KatarinaKovac, MatijaHribar, GoranKovac, MajaBabic];
+export const originalZaposleni: Zaposlen[] = [AnaNovak, MarkoKovac, MajaPetrovic, PeterHorvat, SaraZagar, LukaNovak, KatarinaKovac, MatijaHribar, GoranKovac, MajaBabic];
 
 kardiologija.zaposleni.push(AnaNovak, MarkoKovac, MajaPetrovic);
 ortopedija.zaposleni.push(PeterHorvat, SaraZagar, LukaNovak);
 nevrologija.zaposleni.push(KatarinaKovac, MatijaHribar, GoranKovac, MajaBabic);
 
-export const oddelki: Oddelek[] = [kardiologija, ortopedija, nevrologija];
+export const originalOddelki: Oddelek[] = [kardiologija, ortopedija, nevrologija];

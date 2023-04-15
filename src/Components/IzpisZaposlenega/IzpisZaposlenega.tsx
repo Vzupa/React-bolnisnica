@@ -1,30 +1,32 @@
 import {Zaposlen} from "../../Modules/Zaposlen";
-import {oddelki} from "../../Modules/main";
+import {originalOddelki} from "../../Modules/main";
 
 interface Props {
     zaposlen: Zaposlen;
+    handleDelete: (zaposlen: Zaposlen) => void;
 }
 
 export const IzpisZaposlenega = (props: Props) => {
-        let njegovOddelek: string = "";
+    let njegovOddelek: string = "";
 
-        oddelki.forEach((oddelek) => {
-            oddelek.zaposleni.forEach((zaposlen) => {
-                if (zaposlen == props.zaposlen)
-                    njegovOddelek = oddelek.ime;
-            });
+    originalOddelki.forEach((oddelek) => {
+        oddelek.zaposleni.forEach((zaposlen) => {
+            if (zaposlen == props.zaposlen)
+                njegovOddelek = oddelek.ime;
         });
+    });
 
+    return (
+        <div>
+            <p>
+                Oddelek: {njegovOddelek},
+                <b> {props.zaposlen.ime} {props.zaposlen.priimek}</b>,
+                Delovna doba: {props.zaposlen.letaDelovneDobe},
+                Delovno mesto: {props.zaposlen.delovnoMesto},
+                Email: {props.zaposlen.email}
+            </p>
+            <button onClick={() => props.handleDelete(props.zaposlen)}>Zbriši</button>
 
-        return(
-            <div>
-                    <pre>
-                        Oddelek: {njegovOddelek},
-                        <b> {props.zaposlen.ime} {props.zaposlen.priimek}</b>,
-                        Delovna doba: {props.zaposlen.letaDelovneDobe},
-                        Delovno mesto: {props.zaposlen.delovnoMesto},
-                        Email: {props.zaposlen.email}
-                    </pre>
-            </div>
-        );
+        </div>
+    );
 }

@@ -3,13 +3,33 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {IzpisZaposlenega} from "./Components/IzpisZaposlenega/IzpisZaposlenega";
+import {TabelaZaposlenih} from "./Components/TabelaZaposlenih/TabelaZaposlenih";
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <App /> ,
+        children: [
+            {
+                path: "/vsiZaposleni",
+                element: <TabelaZaposlenih />
+            }
+        ]
+    }
+])
+
+
 root.render(
   <React.StrictMode>
-    <App />
+      <RouterProvider router={router} />
   </React.StrictMode>
 );
 
