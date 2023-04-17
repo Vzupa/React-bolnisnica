@@ -1,8 +1,11 @@
 import {Zaposlen} from "../../Modules/Zaposlen";
 import {useZaposleni} from "../../App";
-import {useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {originalOddelki} from "../../Modules/main";
 import {Oddelek} from "../../Modules/Oddelek";
+import {OddelekOption} from "../OddelekOption";
+import {useParams} from "react-router-dom";
+
 
 const initalStateZaposlen: Zaposlen = {
     id: 0,
@@ -16,16 +19,22 @@ const initalStateZaposlen: Zaposlen = {
     odsotnosti: []
 }
 
-interface Props {
-    zaposlen?: Zaposlen;
-}
+export const SpreminjanjeZaposlenega = () => {
+    const { id } = useParams<{ id?: string }>();
+    const { zaposleni, setZaposleni } = useZaposleni();
+    const [novZaposlen, setNovZaposlen] = useState<Zaposlen>(initalStateZaposlen);
+    const [izbranOddelek, setIzbranOddelek] = useState<number>(0);
 
-export const SpreminjanjeZaposlenega = (props: Props) => {
-    const { zaposlen = initalStateZaposlen } = props;  // Da initalState ce je zaposlen null
-    const {zaposleni, setZaposleni} = useZaposleni();
-    const [ novZaposlen, setNovZaposlen] = useState<Zaposlen>(zaposlen);
 
-    const oddelekSelectRef = useRef<HTMLSelectElement>(null);
+    useEffect(() => {
+        if (id) {
+            const zaposlenToEdit = zaposleni.find((zaposlen: Zaposlen) => zaposlen.id === parseInt(id));
+            if (zaposlenToEdit) {
+                setNovZaposlen(zaposlenToEdit);
+            }
+        }
+        setIzbranOddelek(findOddelekId() as number);
+    }, [id, zaposleni]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = event.target;
@@ -38,20 +47,46 @@ export const SpreminjanjeZaposlenega = (props: Props) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        novZaposlen.id = zaposleni.length + 1;
-        zaposleni.push(novZaposlen);
-        setZaposleni(zaposleni);
-
-        const oddelek = originalOddelki.find((oddelek: Oddelek) => oddelek.id === parseInt(oddelekSelectRef.current?.value || '0'));
-
-
-        if (oddelek) {
-            oddelek.zaposleni.push(novZaposlen);
-            console.log(oddelek.zaposleni);
+        if (id) {
+            setZaposleni((prevZaposleni: Zaposlen[]) =>
+                prevZaposleni.map((zaposlen: Zaposlen) => (zaposlen.id === novZaposlen.id ? novZaposlen : zaposlen))
+            );
+        }
+        else {
+            novZaposlen.id = zaposleni.length + 1;
+            setZaposleni((prevZaposleni: Zaposlen[]) => [...prevZaposleni, novZaposlen]);
         }
 
-        setNovZaposlen(initalStateZaposlen);
+        if (!id){
+            setNovZaposlen(initalStateZaposlen);
+        }
     }
+
+    const  findOddelekId = (): number | string => {
+        for (const oddelek of originalOddelki) {
+            if (oddelek.zaposleni.includes(novZaposlen)) {
+                return oddelek.id;
+            }
+        }
+        return "0";
+    }
+
+    const urediOddelek = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+        event.preventDefault();
+        const { value } = event.target;
+
+        const starOddelek = originalOddelki.find((oddelek: Oddelek) => oddelek.id === findOddelekId());
+        const novOddelek = originalOddelki.find((oddelek: Oddelek) => oddelek.id === parseInt(value || '0'));
+
+        if (starOddelek) {
+            starOddelek.zaposleni = starOddelek.zaposleni.filter((zaposlen: Zaposlen) => zaposlen.id !== novZaposlen.id);
+        }
+        if (novOddelek && !novOddelek.zaposleni.includes(novZaposlen)) {
+            novOddelek.zaposleni.push(novZaposlen);
+            setIzbranOddelek(novOddelek.id);
+        }
+    }
+    
 
     return (
         <div>
@@ -77,13 +112,8 @@ export const SpreminjanjeZaposlenega = (props: Props) => {
                 <label htmlFor="upokojen">Upokojen</label>
                 <input type="checkbox" name="upokojen" id="upokojen" checked={novZaposlen.upokojen} onChange={handleChange} />
 
-                <select id="oddelek-select" ref={oddelekSelectRef}>
-                    <option value="">-- Izberi oddelek --</option>
-                    {originalOddelki.map((oddelek) => (
-                        <option key={oddelek.id} value={oddelek.id}>
-                            {oddelek.ime}
-                        </option>
-                    ))}
+                <select id="oddelek-select" value={izbranOddelek} onChange={urediOddelek}>
+                    <OddelekOption />
                 </select>
                 <button type="submit">Dodaj</button>
             </form>

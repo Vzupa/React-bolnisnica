@@ -1,0 +1,1 @@
+export {OddelekOption} from "./OddelekOption";

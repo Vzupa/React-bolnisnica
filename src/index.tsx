@@ -24,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path: "/dodajZaposlenega",
                 element: <SpreminjanjeZaposlenega />
+            },
+            {
+                path: "/urediZaposlenega/:id",
+                element: <SpreminjanjeZaposlenega />
             }
         ]
     }
