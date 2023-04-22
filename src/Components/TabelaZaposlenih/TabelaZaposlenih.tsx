@@ -15,9 +15,9 @@ export const TabelaZaposlenih = () => {
 
     return(
         <div>
-            <ul>
+            <ul className="list-group">
                 {zaposleni.map((zaposlen: Zaposlen) => (
-                    <li key={zaposlen.id} >
+                    <li key={zaposlen.id} className="list-group-item">
                         <IzpisZaposlenega zaposlen={zaposlen} handleDelete={handleDelete}/>
                     </li>
                 ))}

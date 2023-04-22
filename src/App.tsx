@@ -1,10 +1,21 @@
 import React from 'react';
 import './App.css';
 import {originalZaposleni} from "./Modules/main";
-import {Link, Outlet, useOutletContext} from "react-router-dom";
+import {Link, Outlet, useOutletContext} from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.css';
 
 export function useZaposleni() {
     return useOutletContext<any>();
+}
+
+function NavBar() {
+    return (
+        <div className="navbar">
+            <Link to={"/"}> Domov</Link>
+            <Link to={"/vsiZaposleni"}>Vsi Zaposleni</Link>
+            <Link to={"/dodajZaposlenega"}>Dodaj Zaposlenega </Link>
+        </div>
+    );
 }
 
 function App() {
@@ -12,8 +23,7 @@ function App() {
 
     return (
         <div>
-            <Link to={"/dodajZaposlenega"}>Dodaj Zaposlenega </Link>
-            <Link to={"/vsiZaposleni"}>Vsi Zaposleni</Link>
+            <NavBar />
             <Outlet context={{zaposleni, setZaposleni}}/>
         </div>
     );

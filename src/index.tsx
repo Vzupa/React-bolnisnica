@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {SpreminjanjeZaposlenega, TabelaZaposlenih} from "./Components";
+import {Info, InfoZaposlenega, SpreminjanjeZaposlenega, TabelaZaposlenih} from "./Components";
 
 
 const root = ReactDOM.createRoot(
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
         element: <App /> ,
         children: [
             {
+                path: "/",
+                element: <Info />
+            },
+            {
                 path: "/vsiZaposleni",
                 element: <TabelaZaposlenih />
             },
@@ -28,10 +32,14 @@ const router = createBrowserRouter([
             {
                 path: "/urediZaposlenega/:id",
                 element: <SpreminjanjeZaposlenega />
-            }
-        ]
+            },
+            {
+                path: "/pregledZaposlenega/:id",
+                element: <InfoZaposlenega />
+            },
+        ],
     }
-])
+]);
 
 
 root.render(

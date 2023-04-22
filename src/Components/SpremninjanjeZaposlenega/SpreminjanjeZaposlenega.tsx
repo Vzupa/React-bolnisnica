@@ -16,7 +16,7 @@ const initalStateZaposlen: Zaposlen = {
     email: '',
     slika: '',
     upokojen: false,
-    odsotnosti: []
+    odsotnost: null
 }
 
 export const SpreminjanjeZaposlenega = () => {
@@ -25,6 +25,14 @@ export const SpreminjanjeZaposlenega = () => {
     const [novZaposlen, setNovZaposlen] = useState<Zaposlen>(initalStateZaposlen);
     const [izbranOddelek, setIzbranOddelek] = useState<number>(0);
 
+    const  findOddelekId = (): number | string => {
+        for (const oddelek of originalOddelki) {
+            if (oddelek.zaposleni.includes(novZaposlen)) {
+                return oddelek.id;
+            }
+        }
+        return "0";
+    }
 
     useEffect(() => {
         if (id) {
@@ -62,15 +70,6 @@ export const SpreminjanjeZaposlenega = () => {
         }
     }
 
-    const  findOddelekId = (): number | string => {
-        for (const oddelek of originalOddelki) {
-            if (oddelek.zaposleni.includes(novZaposlen)) {
-                return oddelek.id;
-            }
-        }
-        return "0";
-    }
-
     const urediOddelek = (event: React.ChangeEvent<HTMLSelectElement>): void => {
         event.preventDefault();
         const { value } = event.target;
@@ -89,34 +88,62 @@ export const SpreminjanjeZaposlenega = () => {
     
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="ime">Ime</label>
-                <input type="text" name="ime" id="ime" value={novZaposlen.ime} onChange={handleChange} />
+        <div className="row">
+            <div className="col-md-6">
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="ime" className="form-label">Ime</label>
+                        <input type="text" className="form-control" name="ime" id="ime" value={novZaposlen.ime} onChange={handleChange} />
+                    </div>
 
-                <label htmlFor="priimek">Priimek</label>
-                <input type="text" name="priimek" id="priimek" value={novZaposlen.priimek} onChange={handleChange} />
+                    <div className="mb-3">
+                        <label htmlFor="priimek" className="form-label">Priimek</label>
+                        <input type="text" className="form-control" name="priimek" id="priimek" value={novZaposlen.priimek} onChange={handleChange} />
+                    </div>
 
-                <label htmlFor="letaDelovneDobe">Delovna doba</label>
-                <input type="number" name="letaDelovneDobe" id="letaDelovneDobe" value={novZaposlen.letaDelovneDobe} onChange={handleChange} />
+                    <div className="mb-3">
+                        <label htmlFor="letaDelovneDobe" className="form-label">Delovna doba</label>
+                        <input type="number" className="form-control" name="letaDelovneDobe" id="letaDelovneDobe" value={novZaposlen.letaDelovneDobe} onChange={handleChange} />
+                    </div>
 
-                <label htmlFor="delovnoMesto">Delovno mesto</label>
-                <input type="text" name="delovnoMesto" id="delovnoMesto" value={novZaposlen.delovnoMesto} onChange={handleChange} />
+                    <div className="mb-3">
+                        <label htmlFor="delovnoMesto" className="form-label">Delovno mesto</label>
+                        <input type="text" className="form-control" name="delovnoMesto" id="delovnoMesto" value={novZaposlen.delovnoMesto} onChange={handleChange} />
+                    </div>
 
-                <label htmlFor="email">Email</label>
-                <input type="text" name="email" id="email" value={novZaposlen.email} onChange={handleChange} />
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email</label>
+                        <input type="text" className="form-control" name="email" id="email" value={novZaposlen.email} onChange={handleChange} />
+                    </div>
 
-                <label htmlFor="slika">Slika</label>
-                <input type="text" name="slika" id="slika" value={novZaposlen.slika} onChange={handleChange} />
+                    <div className="mb-3">
+                        <label htmlFor="slika" className="form-label">Slika</label>
+                        <input type="text" className="form-control" name="slika" id="slika" value={novZaposlen.slika} onChange={handleChange} />
+                    </div>
 
-                <label htmlFor="upokojen">Upokojen</label>
-                <input type="checkbox" name="upokojen" id="upokojen" checked={novZaposlen.upokojen} onChange={handleChange} />
+                    <div className="mb-3 form-check">
+                        <input type="checkbox" className="form-check-input" name="upokojen" id="upokojen" checked={novZaposlen.upokojen} onChange={handleChange} />
+                        <label htmlFor="upokojen" className="form-check-label">Upokojen</label>
+                    </div>
 
-                <select id="oddelek-select" value={izbranOddelek} onChange={urediOddelek}>
-                    <OddelekOption />
-                </select>
-                <button type="submit">Dodaj</button>
-            </form>
+                    <div className="mb-3">
+                        <select id="oddelek-select" className="form-select" value={izbranOddelek} onChange={urediOddelek}>
+                            <option value="">-- Izberi oddelek --</option>
+                            {originalOddelki.map((oddelek) => (
+                                <option key={oddelek.id} value={oddelek.id}>
+                                    {oddelek.ime}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary">Dodaj</button>
+                </form>
+            </div>
+
+            <div className="col-md-6">
+                <img src={novZaposlen.slika} className="img-fluid" alt="" style={{ maxHeight: '300px' }} />
+            </div>
         </div>
     );
 }

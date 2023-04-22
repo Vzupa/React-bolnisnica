@@ -18,18 +18,29 @@ export const IzpisZaposlenega = (props: Props) => {
     });
 
     return (
-        <div>
-            <p>
-                Oddelek: {njegovOddelek},
-                <b> {props.zaposlen.ime} {props.zaposlen.priimek}</b>,
-                Delovna doba: {props.zaposlen.letaDelovneDobe},
-                Delovno mesto: {props.zaposlen.delovnoMesto},
-                Email: {props.zaposlen.email}
-            </p>
-            <Link to={`/urediZaposlenega/${props.zaposlen.id}`}>
-                <button>Uredi</button>
-            </Link>
-            <button onClick={() => props.handleDelete(props.zaposlen)}>Zbriši</button>
+        <div className="d-flex justify-content-between align-items-center">
+            <div>
+                <p className="mb-0">
+                    <b>{props.zaposlen.ime} {props.zaposlen.priimek}</b>
+                </p>
+                <p className="mb-0">
+                    Oddelek: {njegovOddelek},
+                    Delovno mesto: {props.zaposlen.delovnoMesto},
+                    Delovna doba: {props.zaposlen.letaDelovneDobe},
+                    Email: {props.zaposlen.email}
+                </p>
+            </div>
+            <div>
+                <Link to={`/urediZaposlenega/${props.zaposlen.id}`}>
+                    <button className="btn btn-primary me-2">Uredi</button>
+                </Link>
+                <Link to={`/pregledZaposlenega/${props.zaposlen.id}`}>
+                    <button className="btn btn-info me-2">Info</button>
+                </Link>
+                <button onClick={() => props.handleDelete(props.zaposlen)} className="btn btn-danger">
+                    Zbriši
+                </button>
+            </div>
         </div>
     );
 }
