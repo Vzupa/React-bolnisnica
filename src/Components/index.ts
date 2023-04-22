@@ -4,3 +4,4 @@ export {SpreminjanjeZaposlenega} from "./SpremninjanjeZaposlenega";
 export {OddelekOption} from "./OddelekOption";
 export {Info} from "./Info";
 export {InfoZaposlenega} from "./InfoZaposlenega";
+export {IzbiraOdsotnost} from "./IzbiraOdostnosti";

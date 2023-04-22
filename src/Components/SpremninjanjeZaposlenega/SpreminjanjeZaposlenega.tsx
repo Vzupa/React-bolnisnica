@@ -137,7 +137,9 @@ export const SpreminjanjeZaposlenega = () => {
                         </select>
                     </div>
 
-                    <button type="submit" className="btn btn-primary">Dodaj</button>
+                    <button type="submit" className="btn btn-primary">
+                        {id ? "Shrani" : "Dodaj"}
+                    </button>
                 </form>
             </div>
 

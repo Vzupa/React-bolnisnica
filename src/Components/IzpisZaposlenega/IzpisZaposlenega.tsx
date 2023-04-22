@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 
 interface Props {
     zaposlen: Zaposlen;
-    handleDelete: (zaposlen: Zaposlen) => void;
 }
 
 export const IzpisZaposlenega = (props: Props) => {
@@ -18,7 +17,6 @@ export const IzpisZaposlenega = (props: Props) => {
     });
 
     return (
-        <div className="d-flex justify-content-between align-items-center">
             <div>
                 <p className="mb-0">
                     <b>{props.zaposlen.ime} {props.zaposlen.priimek}</b>
@@ -30,17 +28,5 @@ export const IzpisZaposlenega = (props: Props) => {
                     Email: {props.zaposlen.email}
                 </p>
             </div>
-            <div>
-                <Link to={`/urediZaposlenega/${props.zaposlen.id}`}>
-                    <button className="btn btn-primary me-2">Uredi</button>
-                </Link>
-                <Link to={`/pregledZaposlenega/${props.zaposlen.id}`}>
-                    <button className="btn btn-info me-2">Info</button>
-                </Link>
-                <button onClick={() => props.handleDelete(props.zaposlen)} className="btn btn-danger">
-                    Zbriši
-                </button>
-            </div>
-        </div>
     );
 }

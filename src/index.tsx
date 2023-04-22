@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {Info, InfoZaposlenega, SpreminjanjeZaposlenega, TabelaZaposlenih} from "./Components";
+import {Info, InfoZaposlenega, IzbiraOdsotnost, SpreminjanjeZaposlenega, TabelaZaposlenih} from "./Components";
 
 
 const root = ReactDOM.createRoot(
@@ -37,6 +37,10 @@ const router = createBrowserRouter([
                 path: "/pregledZaposlenega/:id",
                 element: <InfoZaposlenega />
             },
+            {
+                path: "/izbiraOdsotnosti/:id",
+                element: <IzbiraOdsotnost />
+            }
         ],
     }
 ]);

@@ -3,6 +3,6 @@ import {Zaposlen} from "./Zaposlen";
 export interface Odsotnost {
     id: number;
     zaposlen: Zaposlen;
-    trajanje: number;
+    trajanje: Date;
     nadomestniZaposlen: Zaposlen;
 }
