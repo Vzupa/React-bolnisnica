@@ -3,7 +3,6 @@ import {useZaposleni} from "../../App";
 import React, {useEffect, useState} from "react";
 import {originalOddelki} from "../../Modules/main";
 import {Oddelek} from "../../Modules/Oddelek";
-import {OddelekOption} from "../OddelekOption";
 import {useParams} from "react-router-dom";
 
 

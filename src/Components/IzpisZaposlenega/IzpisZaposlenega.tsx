@@ -1,6 +1,5 @@
 import {Zaposlen} from "../../Modules/Zaposlen";
 import {originalOddelki} from "../../Modules/main";
-import {Link} from "react-router-dom";
 
 interface Props {
     zaposlen: Zaposlen;

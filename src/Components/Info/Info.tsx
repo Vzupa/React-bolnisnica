@@ -2,7 +2,7 @@ import {useZaposleni} from "../../App";
 import {Zaposlen} from "../../Modules/Zaposlen";
 
 export const Info = () => {
-    const {zaposleni, setZaposleni} = useZaposleni();
+    const { zaposleni } = useZaposleni();
     let [stZaposlenih, stUpokojenih] = [0, 0];
 
     zaposleni.forEach((zaposlen: Zaposlen) => {

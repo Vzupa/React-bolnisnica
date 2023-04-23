@@ -1,4 +1,4 @@
-import {Link, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import {useOdostnosti, useZaposleni} from "../../App";
 import {Zaposlen} from "../../Modules/Zaposlen";
 import {IzpisZaposlenega} from "../IzpisZaposlenega";
@@ -6,7 +6,7 @@ import {Odsotnost} from "../../Modules/Odsotnost";
 
 export const IzbiraOdsotnost = () => {
     const { id } = useParams<{ id: string }>();
-    const { zaposleni, setZaposleni } = useZaposleni();
+    const { zaposleni } = useZaposleni();
     const { odsotnosti, setOdsotnosti } = useOdostnosti();
     const zaposlenZaOdsotnost = zaposleni.find((zaposlen: Zaposlen) => zaposlen.id === parseInt(id as string));
 

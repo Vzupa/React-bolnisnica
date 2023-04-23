@@ -12,7 +12,6 @@ import {
     SpreminjanjeZaposlenega,
     TabelaZaposlenih
 } from "./Components";
-import {findAllByDisplayValue} from "@testing-library/react";
 
 
 const root = ReactDOM.createRoot(

@@ -1,7 +1,6 @@
 import {Zaposlen} from "../../Modules/Zaposlen";
 import {IzpisZaposlenega} from "../IzpisZaposlenega";
-import {useOdostnosti, useZaposleni} from "../../App";
-import {Link} from "react-router-dom";
+import {useZaposleni} from "../../App";
 import {GumbiZaTabelo} from "../GumbiZaTabelo";
 
 interface TabelaZaposlenihProps {

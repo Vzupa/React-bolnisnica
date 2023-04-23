@@ -1,18 +1,9 @@
-import {useOdostnosti, useZaposleni} from "../../App";
+import {useOdostnosti } from "../../App";
 import {Odsotnost} from "../../Modules/Odsotnost";
-import {Zaposlen} from "../../Modules/Zaposlen";
 import {IzpisZaposlenega} from "../IzpisZaposlenega";
 
 export const PregledOdsotnih = () => {
-    const { zaposleni, setZaposleni } = useZaposleni();
-    const { odsotnosti, setOdsotnosti } = useOdostnosti();
-
-    const handleDelete = (zaposlenStari: Zaposlen) => {
-        const updatedZaposleni = zaposleni.filter(
-            (zaposlen: Zaposlen) => zaposlenStari.id !== zaposlen.id
-        );
-        setZaposleni(updatedZaposleni);
-    }
+    const { odsotnosti } = useOdostnosti();
 
     return (
         <div>
