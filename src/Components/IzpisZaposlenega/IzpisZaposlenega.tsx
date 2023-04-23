@@ -19,7 +19,9 @@ export const IzpisZaposlenega = (props: Props) => {
     return (
             <div>
                 <p className="mb-0">
-                    <b>{props.zaposlen.ime} {props.zaposlen.priimek}</b>
+                    <b>
+                        {props.zaposlen.ime} {props.zaposlen.priimek}
+                    </b>
                 </p>
                 <p className="mb-0">
                     Oddelek: {njegovOddelek},

@@ -10,5 +10,4 @@ export interface Zaposlen {
     email: string;
     slika: string;
     upokojen: boolean;
-    odsotnost: Odsotnost | null;
 }

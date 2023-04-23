@@ -4,52 +4,68 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {Info, InfoZaposlenega, IzbiraOdsotnost, SpreminjanjeZaposlenega, TabelaZaposlenih} from "./Components";
+import {
+    Info,
+    InfoZaposlenega,
+    IzbiraOdsotnost,
+    PregledOdsotnih,
+    SpreminjanjeZaposlenega,
+    TabelaZaposlenih
+} from "./Components";
+import {findAllByDisplayValue} from "@testing-library/react";
 
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <App /> ,
+        element: <App/>,
         children: [
             {
                 path: "/",
-                element: <Info />
+                element: <Info/>
             },
             {
                 path: "/vsiZaposleni",
-                element: <TabelaZaposlenih />
+                element: <TabelaZaposlenih pogoj={true}/>
+            },
+            {
+                path: "/vsiUpokojeni",
+                element: <TabelaZaposlenih pogoj={false}/>
+            },
+            {
+                path: "/vsiOdostni",
+                element: <PregledOdsotnih/>
             },
             {
                 path: "/dodajZaposlenega",
-                element: <SpreminjanjeZaposlenega />
+                element: <SpreminjanjeZaposlenega/>
             },
             {
                 path: "/urediZaposlenega/:id",
-                element: <SpreminjanjeZaposlenega />
+                element: <SpreminjanjeZaposlenega/>
             },
             {
                 path: "/pregledZaposlenega/:id",
-                element: <InfoZaposlenega />
+                element: <InfoZaposlenega/>
             },
             {
                 path: "/izbiraOdsotnosti/:id",
-                element: <IzbiraOdsotnost />
-            }
+                element: <IzbiraOdsotnost/>
+            },
         ],
     }
 ]);
 
 
 root.render(
-  <React.StrictMode>
-      <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+        <RouterProvider router={router}/>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

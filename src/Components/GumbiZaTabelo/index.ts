@@ -1,0 +1,1 @@
+export {GumbiZaTabelo} from "./GumbiZaTabelo";

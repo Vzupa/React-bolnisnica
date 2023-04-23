@@ -16,7 +16,6 @@ const initalStateZaposlen: Zaposlen = {
     email: '',
     slika: '',
     upokojen: false,
-    odsotnost: null
 }
 
 export const SpreminjanjeZaposlenega = () => {
@@ -62,6 +61,7 @@ export const SpreminjanjeZaposlenega = () => {
         }
         else {
             novZaposlen.id = zaposleni.length + 1;
+
             setZaposleni((prevZaposleni: Zaposlen[]) => [...prevZaposleni, novZaposlen]);
         }
 

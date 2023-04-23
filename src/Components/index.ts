@@ -5,3 +5,5 @@ export {OddelekOption} from "./OddelekOption";
 export {Info} from "./Info";
 export {InfoZaposlenega} from "./InfoZaposlenega";
 export {IzbiraOdsotnost} from "./IzbiraOdostnosti";
+export {PregledOdsotnih} from "./PregledOdsotnih";
+export {GumbiZaTabelo} from "./GumbiZaTabelo";

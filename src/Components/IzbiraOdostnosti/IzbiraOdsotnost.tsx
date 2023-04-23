@@ -1,13 +1,13 @@
 import {Link, useParams} from "react-router-dom";
-import {useZaposleni} from "../../App";
+import {useOdostnosti, useZaposleni} from "../../App";
 import {Zaposlen} from "../../Modules/Zaposlen";
 import {IzpisZaposlenega} from "../IzpisZaposlenega";
-import {randomInt} from "crypto";
 import {Odsotnost} from "../../Modules/Odsotnost";
 
 export const IzbiraOdsotnost = () => {
     const { id } = useParams<{ id: string }>();
     const { zaposleni, setZaposleni } = useZaposleni();
+    const { odsotnosti, setOdsotnosti } = useOdostnosti();
     const zaposlenZaOdsotnost = zaposleni.find((zaposlen: Zaposlen) => zaposlen.id === parseInt(id as string));
 
     let mozniNadomestni: Zaposlen[] = [];
@@ -19,17 +19,21 @@ export const IzbiraOdsotnost = () => {
 
     const handleSubmit = (zaposlen: Zaposlen) => {
         const dateInput = document.getElementById("dateInput") as HTMLInputElement;
-        const date = new Date(dateInput.value);
-        const odsotnost: Odsotnost = {
-            id: randomInt(0, 141421),
-            zaposlen: zaposlenZaOdsotnost,
-            nadomestniZaposlen: zaposlen,
-            trajanje: date
+        let date = new Date(dateInput.value);
+
+        if (isNaN(date.getTime())) {
+            date = new Date();
         }
 
-        zaposlenZaOdsotnost.odsotnost = odsotnost;
-        setZaposleni((prevZaposleni: Zaposlen[]) => [...prevZaposleni, zaposlenZaOdsotnost]);
+        const odsotnost: Odsotnost = {
+            id: parseInt(String(Math.random() * (24324))),
+            zaposlen: zaposlenZaOdsotnost,
+            nadomestniZaposlen: zaposlen,
+            konec: date
+        }
 
+        setOdsotnosti([...odsotnosti, odsotnost]);
+        console.log(odsotnosti);
     }
 
     return (
@@ -39,6 +43,8 @@ export const IzbiraOdsotnost = () => {
             <input
                 type="date"
                 id="dateInput"
+                required={true}
+                min={new Date().toISOString().split('T')[0]}
             />
                 <ul className="list-group">
                     {mozniNadomestni.map((zaposlen: Zaposlen) => (
