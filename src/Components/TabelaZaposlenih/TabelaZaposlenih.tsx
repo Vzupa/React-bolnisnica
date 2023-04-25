@@ -1,8 +1,9 @@
 import {Zaposlen} from "../../Modules/Zaposlen";
 import {IzpisZaposlenega} from "../IzpisZaposlenega";
-import {useOddelki, useZaposleni} from "../../App";
+import {useOddelki, useOdostnosti, useZaposleni} from "../../App";
 import {GumbiZaTabelo} from "../GumbiZaTabelo";
 import {Oddelek} from "../../Modules/Oddelek";
+import {Odsotnost} from "../../Modules/Odsotnost";
 
 interface TabelaZaposlenihProps {
     pogoj: boolean;
@@ -12,6 +13,7 @@ interface TabelaZaposlenihProps {
 export const TabelaZaposlenih = (props: TabelaZaposlenihProps): JSX.Element => {
     const {zaposleni, setZaposleni} = useZaposleni();
     const { oddelki, setOddelki } = useOddelki();
+    const { odsotnosti, setOdsotnosti } = useOdostnosti();
 
     const handleDelete = (zaposlenStari: Zaposlen): void => {
         const updatedZaposleni: Zaposlen[] = zaposleni.filter(
@@ -27,6 +29,15 @@ export const TabelaZaposlenih = (props: TabelaZaposlenihProps): JSX.Element => {
             return oddelek;
         });
         setOddelki(updatedOddelki);
+
+        odsotnosti.filter((odstotnost: Odsotnost) => {
+            if (odstotnost.zaposlen.id === zaposlenStari.id) {
+                setOdsotnosti([...odsotnosti.filter((o: Odsotnost) => o.id !== odstotnost.id)]);
+            }
+            if (odstotnost.nadomestniZaposlen.id === zaposlenStari.id) {
+                setOdsotnosti([...odsotnosti.filter((o: Odsotnost) => o.id !== odstotnost.id)]);
+            }
+        });
     }
 
     const zaposleniToDisplay: Zaposlen[] = props.oddelekID === 0 ? zaposleni : oddelki.filter((oddelek: Oddelek) => oddelek.id === props.oddelekID)[0]?.zaposleni ?? [];

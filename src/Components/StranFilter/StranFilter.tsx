@@ -18,7 +18,7 @@ export const StranFilter = (props: StranFilterProps): JSX.Element => {
         <div className="d-flex flex-column align-items-center">
             <div className="form-group">
                 <label htmlFor="oddelek-select">Filtriranje po oddelkih:</label>
-                <select id="oddelek-select" className="form-control" value={selectedOddelkiId.toString()} onChange={handleOddelkiChange}>
+                <select id="oddelek-select" className="form-control" value={selectedOddelkiId} onChange={handleOddelkiChange}>
                     <OddelekOption />
                 </select>
             </div>

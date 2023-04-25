@@ -22,16 +22,17 @@ export const SpreminjanjeZaposlenega = (): JSX.Element => {
     const { zaposleni, setZaposleni } = useZaposleni();
     const { oddelki } = useOddelki();
     const [novZaposlen, setNovZaposlen] = useState<Zaposlen>(initalStateZaposlen);
-    const [izbranOddelek, setIzbranOddelek] = useState<number>(0);
 
-    const  findOddelekId = (): number | string => {
+    const  findOddelekId = (o: Zaposlen): number => {
         for (const oddelek of oddelki) {
-            if (oddelek.zaposleni.includes(novZaposlen)) {
+            if (oddelek.zaposleni.includes(o)) {
                 return oddelek.id;
             }
         }
-        return "0";
+        return 0;
     }
+
+    const [izbranOddelek, setIzbranOddelek] = useState<number>(0);
 
     useEffect(() => {
         if (id) {
@@ -39,8 +40,8 @@ export const SpreminjanjeZaposlenega = (): JSX.Element => {
             if (zaposlenToEdit) {
                 setNovZaposlen(zaposlenToEdit);
             }
+            setIzbranOddelek(findOddelekId(zaposlenToEdit));
         }
-        setIzbranOddelek(findOddelekId() as number);
     }, [id, zaposleni]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -74,7 +75,7 @@ export const SpreminjanjeZaposlenega = (): JSX.Element => {
         event.preventDefault();
         const { value } = event.target;
 
-        const starOddelek: Oddelek | undefined= oddelki.find((oddelek: Oddelek) => oddelek.id === findOddelekId());
+        const starOddelek: Oddelek | undefined= oddelki.find((oddelek: Oddelek) => oddelek.id === findOddelekId(novZaposlen));
         const novOddelek: Oddelek | undefined = oddelki.find((oddelek: Oddelek) => oddelek.id === parseInt(value || '0'));
 
         if (starOddelek) {
@@ -127,8 +128,8 @@ export const SpreminjanjeZaposlenega = (): JSX.Element => {
                     </div>
 
                     <div className="mb-3">
-                        <select id="oddelek-select" className="form-select" value={izbranOddelek.toString()} onChange={urediOddelek}>
-                            <OddelekOption />
+                        <select id="oddelek-select" className="form-select" value={izbranOddelek} onChange={urediOddelek}>
+                            <OddelekOption id={izbranOddelek}/>
                         </select>
                     </div>
 
