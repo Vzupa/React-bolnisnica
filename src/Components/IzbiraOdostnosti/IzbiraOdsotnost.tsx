@@ -4,11 +4,11 @@ import {Zaposlen} from "../../Modules/Zaposlen";
 import {IzpisZaposlenega} from "../IzpisZaposlenega";
 import {Odsotnost} from "../../Modules/Odsotnost";
 
-export const IzbiraOdsotnost = () => {
+export const IzbiraOdsotnost = (): JSX.Element => {
     const { id } = useParams<{ id: string }>();
     const { zaposleni } = useZaposleni();
     const { odsotnosti, setOdsotnosti } = useOdostnosti();
-    const zaposlenZaOdsotnost = zaposleni.find((zaposlen: Zaposlen) => zaposlen.id === parseInt(id as string));
+    const zaposlenZaOdsotnost: Zaposlen = zaposleni.find((zaposlen: Zaposlen) => zaposlen.id === parseInt(id as string));
 
     let mozniNadomestni: Zaposlen[] = [];
     zaposleni.forEach((o: Zaposlen) => {
@@ -17,9 +17,9 @@ export const IzbiraOdsotnost = () => {
         }
     });
 
-    const handleSubmit = (zaposlen: Zaposlen) => {
-        const dateInput = document.getElementById("dateInput") as HTMLInputElement;
-        let date = new Date(dateInput.value);
+    const handleSubmit = (zaposlen: Zaposlen): void => {
+        const dateInput: HTMLInputElement = document.getElementById("dateInput") as HTMLInputElement;
+        let date: Date = new Date(dateInput.value);
 
         if (isNaN(date.getTime())) {
             date = new Date();

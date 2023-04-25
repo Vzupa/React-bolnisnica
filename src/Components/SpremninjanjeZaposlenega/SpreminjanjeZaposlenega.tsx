@@ -17,7 +17,7 @@ const initalStateZaposlen: Zaposlen = {
     upokojen: false,
 }
 
-export const SpreminjanjeZaposlenega = () => {
+export const SpreminjanjeZaposlenega = (): JSX.Element => {
     const { id } = useParams<{ id?: string }>();
     const { zaposleni, setZaposleni } = useZaposleni();
     const [novZaposlen, setNovZaposlen] = useState<Zaposlen>(initalStateZaposlen);
@@ -34,7 +34,7 @@ export const SpreminjanjeZaposlenega = () => {
 
     useEffect(() => {
         if (id) {
-            const zaposlenToEdit = zaposleni.find((zaposlen: Zaposlen) => zaposlen.id === parseInt(id));
+            const zaposlenToEdit: Zaposlen = zaposleni.find((zaposlen: Zaposlen) => zaposlen.id === parseInt(id));
             if (zaposlenToEdit) {
                 setNovZaposlen(zaposlenToEdit);
             }
@@ -42,7 +42,7 @@ export const SpreminjanjeZaposlenega = () => {
         setIzbranOddelek(findOddelekId() as number);
     }, [id, zaposleni]);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value, type, checked } = event.target;
 
         setNovZaposlen((prevState: Zaposlen) => ({
@@ -51,7 +51,7 @@ export const SpreminjanjeZaposlenega = () => {
         }));
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         if (id) {
             setZaposleni((prevZaposleni: Zaposlen[]) =>
@@ -73,8 +73,8 @@ export const SpreminjanjeZaposlenega = () => {
         event.preventDefault();
         const { value } = event.target;
 
-        const starOddelek = originalOddelki.find((oddelek: Oddelek) => oddelek.id === findOddelekId());
-        const novOddelek = originalOddelki.find((oddelek: Oddelek) => oddelek.id === parseInt(value || '0'));
+        const starOddelek: Oddelek | undefined= originalOddelki.find((oddelek: Oddelek) => oddelek.id === findOddelekId());
+        const novOddelek: Oddelek | undefined = originalOddelki.find((oddelek: Oddelek) => oddelek.id === parseInt(value || '0'));
 
         if (starOddelek) {
             starOddelek.zaposleni = starOddelek.zaposleni.filter((zaposlen: Zaposlen) => zaposlen.id !== novZaposlen.id);
@@ -126,7 +126,7 @@ export const SpreminjanjeZaposlenega = () => {
                     </div>
 
                     <div className="mb-3">
-                        <select id="oddelek-select" className="form-select" value={izbranOddelek} onChange={urediOddelek}>
+                        <select id="oddelek-select" className="form-select" value={izbranOddelek.toString()} onChange={urediOddelek}>
                             <option value="">-- Izberi oddelek --</option>
                             {originalOddelki.map((oddelek) => (
                                 <option key={oddelek.id} value={oddelek.id}>

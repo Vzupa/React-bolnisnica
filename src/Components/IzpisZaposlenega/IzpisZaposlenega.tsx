@@ -1,16 +1,17 @@
 import {Zaposlen} from "../../Modules/Zaposlen";
 import {originalOddelki} from "../../Modules/main";
+import {Oddelek} from "../../Modules/Oddelek";
 
 interface Props {
     zaposlen: Zaposlen;
 }
 
-export const IzpisZaposlenega = (props: Props) => {
+export const IzpisZaposlenega = (props: Props): JSX.Element => {
     let njegovOddelek: string = "";
 
-    originalOddelki.forEach((oddelek) => {
-        oddelek.zaposleni.forEach((zaposlen) => {
-            if (zaposlen == props.zaposlen)
+    originalOddelki.forEach((oddelek: Oddelek) => {
+        oddelek.zaposleni.forEach((zaposlen: Zaposlen) => {
+            if (zaposlen === props.zaposlen)
                 njegovOddelek = oddelek.ime;
         });
     });

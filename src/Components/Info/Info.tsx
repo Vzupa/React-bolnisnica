@@ -1,9 +1,9 @@
 import {useZaposleni} from "../../App";
 import {Zaposlen} from "../../Modules/Zaposlen";
 
-export const Info = () => {
+export const Info = (): JSX.Element => {
     const { zaposleni } = useZaposleni();
-    let [stZaposlenih, stUpokojenih] = [0, 0];
+    let [stZaposlenih, stUpokojenih]: [number, number] = [0, 0];
 
     zaposleni.forEach((zaposlen: Zaposlen) => {
         if (zaposlen.upokojen) {

@@ -6,9 +6,9 @@ interface props {
     handleDelete: (zaposlen: Zaposlen) => void;
 }
 
-export const GumbiZaTabelo = (props: props) => {
-    const zaposlen = props.zaposlen;
-    const handleDelete = props.handleDelete;
+export const GumbiZaTabelo = (props: props): JSX.Element => {
+    const zaposlen: Zaposlen = props.zaposlen;
+    const handleDelete: (zaposlen: Zaposlen) => void = props.handleDelete;
 
     return (
         <div>

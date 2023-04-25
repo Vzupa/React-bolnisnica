@@ -2,7 +2,7 @@ import {useOdostnosti } from "../../App";
 import {Odsotnost} from "../../Modules/Odsotnost";
 import {IzpisZaposlenega} from "../IzpisZaposlenega";
 
-export const PregledOdsotnih = () => {
+export const PregledOdsotnih = (): JSX.Element => {
     const { odsotnosti } = useOdostnosti();
 
     return (

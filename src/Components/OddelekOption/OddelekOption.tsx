@@ -1,6 +1,6 @@
 import {originalOddelki} from "../../Modules/main";
 
-export const OddelekOption = () => {
+export const OddelekOption = (): JSX.Element => {
     return (
         <>
             <option value="">-- Izberi oddelek --</option>

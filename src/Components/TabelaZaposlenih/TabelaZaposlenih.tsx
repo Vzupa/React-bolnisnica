@@ -7,11 +7,11 @@ interface TabelaZaposlenihProps {
     pogoj: boolean;
 }
 
-export const TabelaZaposlenih = (props: TabelaZaposlenihProps) => {
+export const TabelaZaposlenih = (props: TabelaZaposlenihProps): JSX.Element => {
     const {zaposleni, setZaposleni} = useZaposleni();
 
-    const handleDelete = (zaposlenStari: Zaposlen) => {
-        const updatedZaposleni = zaposleni.filter(
+    const handleDelete = (zaposlenStari: Zaposlen): void => {
+        const updatedZaposleni: Zaposlen[] = zaposleni.filter(
             (zaposlen: Zaposlen) => zaposlenStari.id !== zaposlen.id
         );
         setZaposleni(updatedZaposleni);
@@ -21,7 +21,7 @@ export const TabelaZaposlenih = (props: TabelaZaposlenihProps) => {
         <div>
             <ul className="list-group">
                 {zaposleni.map((zaposlen: Zaposlen) => (
-                    (zaposlen.upokojen == props.pogoj) ? null : (
+                    (zaposlen.upokojen === props.pogoj) ? null : (
                         <li key={zaposlen.id} className="list-group-item">
                             <div className="d-flex justify-content-between align-items-center">
                                 <IzpisZaposlenega zaposlen={zaposlen}/>
