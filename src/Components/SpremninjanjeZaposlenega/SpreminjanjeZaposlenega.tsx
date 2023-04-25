@@ -1,9 +1,9 @@
 import {Zaposlen} from "../../Modules/Zaposlen";
-import {useZaposleni} from "../../App";
+import {useOddelki, useZaposleni} from "../../App";
 import React, {useEffect, useState} from "react";
-import {originalOddelki} from "../../Modules/main";
 import {Oddelek} from "../../Modules/Oddelek";
 import {useParams} from "react-router-dom";
+import {OddelekOption} from "../OddelekOption";
 
 
 const initalStateZaposlen: Zaposlen = {
@@ -20,11 +20,12 @@ const initalStateZaposlen: Zaposlen = {
 export const SpreminjanjeZaposlenega = (): JSX.Element => {
     const { id } = useParams<{ id?: string }>();
     const { zaposleni, setZaposleni } = useZaposleni();
+    const { oddelki } = useOddelki();
     const [novZaposlen, setNovZaposlen] = useState<Zaposlen>(initalStateZaposlen);
     const [izbranOddelek, setIzbranOddelek] = useState<number>(0);
 
     const  findOddelekId = (): number | string => {
-        for (const oddelek of originalOddelki) {
+        for (const oddelek of oddelki) {
             if (oddelek.zaposleni.includes(novZaposlen)) {
                 return oddelek.id;
             }
@@ -73,8 +74,8 @@ export const SpreminjanjeZaposlenega = (): JSX.Element => {
         event.preventDefault();
         const { value } = event.target;
 
-        const starOddelek: Oddelek | undefined= originalOddelki.find((oddelek: Oddelek) => oddelek.id === findOddelekId());
-        const novOddelek: Oddelek | undefined = originalOddelki.find((oddelek: Oddelek) => oddelek.id === parseInt(value || '0'));
+        const starOddelek: Oddelek | undefined= oddelki.find((oddelek: Oddelek) => oddelek.id === findOddelekId());
+        const novOddelek: Oddelek | undefined = oddelki.find((oddelek: Oddelek) => oddelek.id === parseInt(value || '0'));
 
         if (starOddelek) {
             starOddelek.zaposleni = starOddelek.zaposleni.filter((zaposlen: Zaposlen) => zaposlen.id !== novZaposlen.id);
@@ -127,12 +128,7 @@ export const SpreminjanjeZaposlenega = (): JSX.Element => {
 
                     <div className="mb-3">
                         <select id="oddelek-select" className="form-select" value={izbranOddelek.toString()} onChange={urediOddelek}>
-                            <option value="">-- Izberi oddelek --</option>
-                            {originalOddelki.map((oddelek) => (
-                                <option key={oddelek.id} value={oddelek.id}>
-                                    {oddelek.ime}
-                                </option>
-                            ))}
+                            <OddelekOption />
                         </select>
                     </div>
 

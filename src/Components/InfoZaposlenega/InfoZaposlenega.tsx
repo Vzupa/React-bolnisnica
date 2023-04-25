@@ -1,18 +1,18 @@
 import {useParams} from "react-router-dom";
-import {useZaposleni} from "../../App";
+import {useOddelki, useZaposleni} from "../../App";
 import {Zaposlen} from "../../Modules/Zaposlen";
 import React from "react";
-import {originalOddelki} from "../../Modules/main";
 import {Oddelek} from "../../Modules/Oddelek";
 
 export const InfoZaposlenega = (): JSX.Element => {
     const { id } = useParams<{ id: string }>();
     const { zaposleni } = useZaposleni();
+    const { oddelki } = useOddelki();
 
     const zaposlen: Zaposlen = zaposleni.find((zaposlen: Zaposlen) => zaposlen.id === parseInt(id as string));
 
     let njegovOddelek: string = "";
-    originalOddelki.forEach((oddelek: Oddelek) => {
+    oddelki.forEach((oddelek: Oddelek) => {
         oddelek.zaposleni.forEach((o: Zaposlen) => {
             if (o === zaposlen)
                 njegovOddelek = oddelek.ime;

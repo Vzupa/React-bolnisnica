@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {originalOdostnosti, originalZaposleni} from "./Modules/main";
+import {originalOddelki, originalOdostnosti, originalZaposleni} from "./Modules/main";
 import {Link, Outlet, useOutletContext} from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -9,6 +9,10 @@ export function useZaposleni() {
 }
 
 export function useOdostnosti() {
+    return useOutletContext<any>();
+}
+
+export function useOddelki() {
     return useOutletContext<any>();
 }
 
@@ -27,13 +31,15 @@ function NavBar() {
 function App() {
     const [zaposleni, setZaposleni] = React.useState(originalZaposleni);
     const [odsotnosti, setOdsotnosti] = React.useState(originalOdostnosti);
+    const [oddelki, setOddelki] = React.useState(originalOddelki);
 
     return (
         <div>
             <NavBar/>
             <Outlet context={{
                 zaposleni, setZaposleni,
-                odsotnosti, setOdsotnosti
+                odsotnosti, setOdsotnosti,
+                oddelki, setOddelki
             }}/>
         </div>
     );

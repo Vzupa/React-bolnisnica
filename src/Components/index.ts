@@ -7,3 +7,4 @@ export {InfoZaposlenega} from "./InfoZaposlenega";
 export {IzbiraOdsotnost} from "./IzbiraOdostnosti";
 export {PregledOdsotnih} from "./PregledOdsotnih";
 export {GumbiZaTabelo} from "./GumbiZaTabelo";
+export {StranFilter} from "./StranFilter";

@@ -9,8 +9,7 @@ import {
     InfoZaposlenega,
     IzbiraOdsotnost,
     PregledOdsotnih,
-    SpreminjanjeZaposlenega,
-    TabelaZaposlenih
+    SpreminjanjeZaposlenega, StranFilter,
 } from "./Components";
 
 
@@ -30,11 +29,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/vsiZaposleni",
-                element: <TabelaZaposlenih pogoj={true}/>
+                element: <StranFilter pogoj={true}/>
             },
             {
                 path: "/vsiUpokojeni",
-                element: <TabelaZaposlenih pogoj={false}/>
+                element: <StranFilter pogoj={false}/>
             },
             {
                 path: "/vsiOdostni",
